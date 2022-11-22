@@ -1,0 +1,63 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java-library'
+}
+
+group = 'com.cognizant.ciqdashboard.data.collector'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+
+	flatDir {
+		dirs 'src/libs'
+	}
+
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2021.0.4")
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.5'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+
+	implementation name: 'Zehyr-JWT-Generator-1.0-SNAPSHOT'
+	implementation name: 'zfj-cloud-rest-client-1.2-jar-with-dependencies'
+
+	api 'io.github.openfeign:feign-jackson'
+	api 'io.github.openfeign:feign-okhttp'
+
+	api group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

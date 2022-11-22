@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: CIQDashboard-jira-collector
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ciqdashboard
+      credents: ENC(rwQEK1M5vbHwwhhqx6pBDHn4Ut4IrKHbBUsrB0AUR8XHc8GN/Sf4IRVma96OWroe)
+      collection:
+        jira:
+          issues: Issues
+        zephyr:
+          execution: Executions
+          cycle: Cycles
+
+logging:
+  level:
+    com.cognizant.collector.jira.client.JiraClient: OFF
+
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n'
+
+scheduler:
+  cron: 0 0/1 * * * *
+  enable: true
+
+jiraServer:
+  url: https://testingwithjira.atlassian.net/rest/api/latest
+  username: testinglogin494@gmail.com
+  password: a6pXmu4g5ilRCXGv2zeOBA2B
+
+zephyrServer:
+  url: https://prod-api.zephyr4jiracloud.com/connectpublic/rest/api/1.0
+  accessKey: YmU2OTc1NmYtNDE3Ni0zMTIyLTg4N2ItZDZjMTE3Mzk5Y2FiIDYyMjc1MWFjYTY4N2M1MDA2YTYxYTg4MiBVU0VSX0RFRkFVTFRfTkFNRQ
+  secretKey: P7yj1YzGkgKyG00egtD0YTPGTBN2itf7YYiTkjjEuyg
+
+server :
+  port: 8088
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: LeapSecurityKey
+    bean: JasyptEncryptorBean
